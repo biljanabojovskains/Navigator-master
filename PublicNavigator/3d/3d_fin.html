@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="robots" content="index, all" />
+    <title>Centar 3D</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.18.2/ol.css" type="text/css" />
+  </head>
+  <body>
+    <div>
+      <input type="button" style="position: absolute; z-index:1; left: 100px;" value="Планирана/Постојна" onclick="javascript:toggle3D2()" />
+    </div>
+    <div id="map2d" style="width:100%;height:100%"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.3/proj4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.18.2/ol-debug.js"></script>
+    <script type="text/javascript" src="Cesium/Cesium.js"></script>
+    <script type="text/javascript" src="olcesium.js"></script>
+    <script type="text/javascript">
+		var view = new ol.View({
+    center: ol.proj.transform([21.431, 41.995], 'EPSG:4326', 'EPSG:3857'),
+    zoom: 14,
+    projection: 'EPSG:3857'
+});
+
+var flag=false;
+
+var layer = new ol.layer.Tile({
+    source: new ol.source.OSM()
+});
+
+var ol2d = new ol.Map({
+    layers: [layer],
+    target: 'map2d',
+    view: view
+});
+
+var ol3d = new olcs.OLCesium({ map: ol2d });
+ol3d.setEnabled(true);
+	
+var scene = ol3d.getCesiumScene();
+
+var terrainProvider = new Cesium.CesiumTerrainProvider({
+    //url : 'https://assets.agi.com/stk-terrain/world'
+	url : 'https://assets.agi.com/stk-terrain/v1/tilesets/world/tiles'
+});
+scene.terrainProvider = terrainProvider;
+//scene.globe.depthTestAgainstTerrain = true;
+
+
+var promise = Cesium.GeoJsonDataSource.load('data/geojson/doneseni2.geojson', {
+	camera: scene.camera,
+	canvas: scene.canvas,
+	stroke: Cesium.Color.HOTPINK,
+	fill: Cesium.Color.PINK.withAlpha(0.5)
+});
+
+
+var promise2 = Cesium.GeoJsonDataSource.load('data/geojson/donesuvanje2.geojson', {
+	camera: scene.camera,
+	canvas: scene.canvas
+});
+
+function _doToggle() {
+    ol3d.setEnabled(!ol3d.getEnabled());
+}
+
+function toggle3D2() {
+    flag=!flag;
+	if(flag) {
+	init3D();
+	} else {
+	init3D2();
+	}
+}
+
+function toggle3D() {
+    if (!ol3d) {
+        _doToggle();
+    } else {
+        _doToggle();
+    }
+}
+
+function init3D() {
+    promise.then(function(dataSource) {
+		ol3d.getDataSources().removeAll();
+        ol3d.getDataSources().add(dataSource);
+
+        //Get the array of entities
+        var entities = dataSource.entities.values;
+        for (var i = 0; i < entities.length; i++) {
+            var entity = entities[i];
+            //entity.polygon.extrudedHeight = entity.properties.extrude;
+            entity.polygon.height = entity.properties.nadmorska_visina +32.5;
+			entity.polygon.extrudedHeight = entity.properties.nadmorska_visina +32.5 + entity.properties.extrude;
+        }
+    }).otherwise(function(error) {
+        //Display any errrors encountered while loading.
+        alert(error);
+    });
+
+}
+function init3D2() {
+    promise2.then(function(dataSource) {
+		ol3d.getDataSources().removeAll();
+        ol3d.getDataSources().add(dataSource);
+
+        //Get the array of entities
+        var entities = dataSource.entities.values;
+        for (var i = 0; i < entities.length; i++) {
+            var entity = entities[i];
+            entity.polygon.height = entity.properties.nadmorska_visina +32.5;
+            entity.polygon.extrudedHeight = entity.properties.nadmorska_visina +32.5 + entity.properties.extrude;
+			entity.color = Cesium.Color(1.0, 1.0, 1.0, 1.0);
+        }
+    }).otherwise(function(error) {
+        //Display any errrors encountered while loading.
+        alert(error);
+    });
+}
+
+	</script>
+	<span id="altData" />
+  </body>
+</html>

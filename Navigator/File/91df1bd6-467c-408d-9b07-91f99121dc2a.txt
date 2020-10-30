@@ -1,0 +1,35 @@
+
+MAKRO
+
+insert into makro_opfat(opfat_ime, izrabotuva, tehnicki_broj, datum_donesuvanje, planski_period, valid_from, valid_to, povrsina, povrsina_presmetana, geom, fk_tip_plan)
+select ime_opfat, izrabotuva, teh_broj, '2013-06-01', vaznost, '2013-06-01', 'infinity', st_area(ST_Force2D(geom)), st_area(ST_Force2D(geom)), ST_Force2D(geom), 2 from opfat;
+
+
+
+insert into makro_blok(blok_ime, valid_from, valid_to, povrsina, povrsina_presmetana, geom, fk_tip_plan, fk_makro_opfat)
+select ime_blok, '2013-06-01', 'infinity', st_area(ST_Force2D(geom)), st_area(ST_Force2D(geom)), ST_Force2D(geom), 2, 1 from blokovi;
+
+
+MIKRO
+
+insert into mikro_opfat(opfat_ime, izrabotuva,br_odluka, tehnicki_broj, datum_donesuvanje, planski_period, valid_from, valid_to, povrsina, povrsina_presmetana, geom, fk_tip_plan)
+select ime_opfat, izrabotuva, br_odluka,  teh_broj, '2015-12-01', vaznost, '2015-12-01', 'infinity', st_area(ST_Force2D(geom)), st_area(ST_Force2D(geom)), ST_Force2D(geom), 4 from opfat;
+
+
+insert into mikro_blok(blok_ime, valid_from, valid_to, povrsina, povrsina_presmetana, geom, fk_tip_plan, fk_mikro_opfat)
+select ime_blok, '2015-11-01', 'infinity', st_area(ST_Force2D(geom)), st_area(ST_Force2D(geom)), ST_Force2D(geom), 4, 9 from blok;
+
+
+insert into mikro_gradezni_parceli(broj, klasa_namena, komp_klasa_namena, povrsina_gradenje, bruto_povrsina, max_visina, katnost, parking_mesta, valid_from, valid_to, povrsina, povrsina_presmetana, geom, fk_tip_plan, fk_mikro_opfat, procent_izgradenost, koef_iskoristenost)
+select broj_gp, klasa_name, komp_klasa, povrs_grad, bruto_razv, max_visina, katnost, parking, '2015-12-01', 'infinity', povrs_parc, st_area(ST_Force2D(geom)), ST_Force2D(geom), 4, 2, proc_izgr, koef_iskor from parceli;
+
+
+insert into mikro_povrsini_za_gradba(max_visina, valid_from, valid_to, povrsina, povrsina_presmetana, geom, fk_tip_plan, fk_mikro_opfat)
+select max_visina, '2013-11-01', 'infinity', st_area(ST_Force2D(geom)), st_area(ST_Force2D(geom)), ST_Force2D(geom), 4, 2 from gradbi;
+
+
+insert into mikro_regulacioni_linii(valid_from, valid_to, povrsina, povrsina_presmetana, geom, fk_tip_plan, fk_mikro_opfat)
+select '2013-11-01', 'infinity', st_area(ST_Force2D(geom)), st_area(ST_Force2D(geom)), ST_Force2D(geom), 4, 12 from regulacija;
+
+
+ST_Force2D(geom);

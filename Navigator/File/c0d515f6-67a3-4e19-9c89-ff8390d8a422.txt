@@ -1,0 +1,29 @@
+insert into legalizacija_za_gradba(br_katastarska_parcela,namena_na_objekt,active,geom)
+select broj_kp,refname,active, ST_Force2D(geom) from legalizacija_za_gradba_martin;
+
+_______________________________________________________________________________________________
+
+INSERT INTO legalizacija_za_gradba(br_objekt, br_katastarska_parcela, namena_na_objekt, tip_legalizacija, active, geom)
+                SELECT br_objekt::integer, broj_kp, namena, tip, active::boolean, geom FROM legalizacija_w1251;
+
+UPDATE legalizacija_za_gradba AS l
+SET katastarska_opstina = k.kat_opstina_ime
+FROM kat_opstini AS k
+WHERE ST_Intersects (k.geom, l.geom);
+
+
+
+update legalizacija_za_gradba set namena_na_objekt = 'Друго' where namena_na_objekt is null;
+
+
+
+______________________________________________________________________________________________
+PROVERKA DALI IMA NEVALIDNI POLIGONI
+select * from legalizacija_za_gradba where ST_Isvalid(geom)=false
+
+AKO IMA NEVALIDNI GO PUSHTASH OVA
+ako ne e validna st_makevaid
+
+
+
+

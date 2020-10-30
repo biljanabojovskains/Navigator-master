@@ -1,0 +1,50 @@
+ var fileList = document.querySelector('#file_baranje');
+                if (file != null) {
+				
+				
+				  for (var i = 0; i < fileList.length; i++) {
+				   var file = fileList[i];
+				   if (file != null) {
+				   AJAX
+				   }
+				   
+				  }
+				  
+
+
+
+  $('#btnZacuvajDoc').click(function () {
+            var id = document.getElementById('<%= idLegalizacija.ClientID %>').value;
+            console.log(id);
+            var file = document.querySelector('#document_info').files[0];
+            if (file != null) {
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (function () {
+
+                    $.ajax({
+                        type: "POST",
+                        url: "<%= Page.ResolveUrl("~/Modules/Legalizacija/Legalizacija.aspx/ZacuvajDokumenti")%>",
+                        async: true,
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data: '{ fileBase64:"' + reader.result + '", filename:"' + file.name + '", id:"' + id + '" }',
+
+                        success: function (result) {
+                            closeDocModal();
+                            $('#document_info').val("");
+                            
+
+                        },
+                        error: function (p1, p2, p3) {
+                            alert(p1.status);
+                            alert(p3);
+                        }
+
+                    });
+
+                });
+
+            }
+            
+        });

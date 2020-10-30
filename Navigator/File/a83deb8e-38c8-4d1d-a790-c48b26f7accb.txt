@@ -1,0 +1,14 @@
+SELECT
+ 'zavrseni' zavrseni, COUNT (*)
+FROM
+ legalizacija_za_gradba 
+ WHERE active=FALSE 
+ union 
+ SELECT
+ 'nezavrseni' zavrseni, COUNT (*)
+FROM
+ legalizacija_za_gradba 
+ WHERE active=true 
+
+____________________________________
+

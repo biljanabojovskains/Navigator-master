@@ -1,0 +1,165 @@
+﻿/* Set widths on the form inputs since otherwise they're 100% wide */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+    .jumbotron {
+        margin-top: 20px;
+    }
+
+    .body-content {
+        padding: 0;
+    }
+}
+
+#mapG {
+position: absolute;
+    height: auto;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+}
+#mapG:-moz-full-screen {
+  height: 100%;
+  width: 100%;
+}
+#mapG:-webkit-full-screen {
+  height: 100%;
+  width: 100%;
+}
+#mapG:-ms-fullscreen {
+  height: 100%;
+  width: 100%;
+}
+#mapG:fullscreen {
+  height: 100%;
+  width: 100%;
+}
+
+.edit_map_controlls{
+    width:60px;
+    position: absolute;
+    right: 0;
+    top: 4.5em;
+    z-index:1;
+}
+
+.bl {
+    position: fixed;
+    bottom: 0;
+    right: 10px;
+    background-color: white;
+    font-weight: bold;
+    z-index: 11;
+}
+
+.bl-inner {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    background-color: white;
+    font-weight: bold;
+    z-index: 11;
+}
+
+#mouse-position {
+    position: fixed;
+    bottom: 0;
+    right: 10px;
+    background-color: white;
+    font-weight: bold;
+    z-index: 10;
+}
+
+#mouse-position-inner {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    background-color: white;
+    font-weight: bold;
+    z-index: 10;
+}
+
+.petsto {
+    width: 500px !important;
+}
+
+.popup {
+    position: absolute;
+    right: 65px;
+    top: 60px;
+}
+
+.desno {
+    float: right !important;
+}
+
+.lebdi {
+    position: absolute !important;
+    top: 0;
+}
+
+.navbar-semi {
+    background: #000000;
+    background: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.navbar-right-navigator {
+    margin-right: 350px;
+}
+
+.navbar-center-registracija {
+    margin-left: 200px;
+    font-size: larger;
+}
+
+.navbar-center-najava {
+    margin-left: 20px;
+    font-size: larger;
+}
+
+.navbar-center-register {
+    margin-top: 45px;   
+}
+
+.navbar-forgot {
+    margin-top: 45px;   
+}
+.navbar-right-odjava {
+    font-size: large;
+}
+
+.ol-zoom {
+    top: 4.5em !important;
+}
+
+.ol-scale-line {
+    background: #ff0000 !important;
+    background: rgba(255,0,0,0.7) !important;
+}
+
+.ol-control button {
+    background-color: #ff0000 !important;
+    background-color: rgba(255,0,0,0.7) !important;
+}
+.main-content-najava{
+    margin-top : 75px;
+}
+.tocki-interes{
+    width:280px;
+}
+.inlineblock {
+    display: inline-block !important;
+}
+
+.white-text {
+    color: whitesmoke;
+}

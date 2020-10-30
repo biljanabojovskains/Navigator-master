@@ -1,0 +1,53 @@
+.layer-switcher {
+    position: absolute;
+    top: .5em;
+    right: 1.6em;
+    text-align: left;
+}
+
+.layer-switcher .panel {
+    padding-right: 50px;
+    border: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    display: none;
+}
+
+.layer-switcher.shown .panel {
+    display: block;
+   overflow-y:scroll;
+   min-height:50px;
+      max-height:300px;
+}
+
+.layer-switcher button {
+    float: right;
+    width: 38px;
+    height: 38px;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACUAAAAgCAIAAAAaMSbnAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADfSURBVEhL7ZcxC8IwFIT9dU6CTlbxf7mru7OotP4LQdPiLIRuglCMF1+pMbUd9KVkyHFI6Uvu4zo9e+qlpZDTJOtvTuwexynCiQKVvJWQE2c8hBMF0jzwB9tzFKezQ8ZuxI72oqqoefiSUWKfYzSQQLx5aG2dYDcQgcdov3nz4/VWPOjCV2GKM9Yt097z5L1oSmyfkn/hrS85/Zpd8Uzv+XlNie1TcuhnmhJDv9rFyt73MzvVhSkn738HHq8Dj9cfPKzcne67ep/fCUdIxA6tfR5auPx/hHCiQCWvIyn1BOId+NSTy19lAAAAAElFTkSuQmCC') /*logo.png*/;
+    background-repeat: no-repeat;
+    background-position: 2px;
+    background-color: white;
+    border: none;
+}
+
+.layer-switcher button:focus, .layer-switcher button:hover {
+    background-color: white;
+}
+
+.layer-switcher ul {
+    padding-left: 1em;
+    list-style: none;
+}
+
+.layer-switcher li.group {
+    padding-top: 5px;
+}
+
+.layer-switcher li.group > label {
+    font-weight: bold;
+}
+
+.layer-switcher input {
+    margin: 4px;
+}
